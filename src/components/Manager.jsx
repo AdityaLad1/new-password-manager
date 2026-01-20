@@ -1,15 +1,44 @@
-import React, { useState } from "react";
-import { useRef } from "react";
+import React, { useState, useRef,useEffect  } from "react";
+import eye from "../assets/eye.png";
+import hiddeneye from "../assets/hidden.png";
 
 const Managger = () => {
   const ref = useRef();
   const [eyeimage, setEyeimage] = useState(true);
+  const [form, setForm] = useState({site:"",username:"",password:""})
+  const [passwordArray, setPasswordArray] = useState([])
 
-//   const showPassword = () => {
-//     alert("showpassword");
-//     setEyeimage();
-//     ref.current.src = "src/assets/hidden.png";
-//   };
+  useEffect(() => {
+    let passwords = localStorage.getItem("passwords")
+   
+    if(passwords){
+        setPasswordArray(JSON.parse(passwords))
+    }
+    // else{
+    //     passwordArray=[]
+    // }
+  
+    
+  }, [])
+  
+
+    const showPassword = () => {
+      alert("showpassword");
+    //   setEyeimage();
+    //   ref.current.src = "src/assets/hidden.png";
+    };
+    const savePassword = () => {
+    setPasswordArray([...passwordArray,form])
+    localStorage.setItem("passwords",JSON.stringify([...passwordArray,form]))
+    console.log(passwordArray);
+    
+
+  setForm({ site: "", username: "", password: "" });
+    };
+    const handleChange = (e) => {
+      setForm({...form,[e.target.name]:e.target.value})
+   
+    };
   return (
     <div>
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]">
@@ -30,24 +59,30 @@ const Managger = () => {
             className="rounded-full border text-black p-4 py-1  border-green-500 w-full"
             type="text"
             placeholder="Enter website URL"
-            name=""
+            name="site"
             id=" "
+            value={form.site}
+            onChange={handleChange}
           />
           <div className="flex w-full gap-8 ">
             <input
               className="rounded-full border text-black p-4 py-1  border-green-500 w-full"
               type="text"
               placeholder="Enter username"
-              name=""
+              name="username"
               id=""
+              value={form.username}
+              onChange={handleChange}
             />
             <div className="relative flex justify-center items-center">
               <input
                 className="rounded-full border text-black p-4 py-1 overflow-hidden  border-green-500 w-full"
                 type="text"
                 placeholder="Enter password"
-                name=""
+                name="password"
                 id=""
+                value={form.password}
+                onChange={handleChange}
               />
               <span
                 className="absolute right-1.5 top-1.5 text-black "
@@ -56,19 +91,15 @@ const Managger = () => {
                 }}
               >
                 {eyeimage ? (
-                  <img className="w-6" src="src/assets/eye.png" alt="sfdsdf" />
+                  <img className="w-6" src={eye} alt="sfdsdf" />
                 ) : (
-                  <img
-                    className="w-6"
-                    src="src/assets/hidden.png"
-                    alt="sfdsdf"
-                  />
+                  <img className="w-6" src={hiddeneye} alt="sfdsdf" />
                 )}
               </span>
             </div>
           </div>
 
-          <button className="flex justify-center items-center gap-2 bg-green-600 hover:bg-green-500 rounded-full px-8 py-2 w-fit">
+          <button onClick={savePassword} className="flex justify-center items-center gap-2 bg-green-600 hover:bg-green-500 rounded-full px-8 py-2 w-fit">
             <lord-icon
               src="https://cdn.lordicon.com/ueoydrft.json"
               trigger="hover"
