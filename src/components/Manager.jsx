@@ -3,7 +3,6 @@ import eye from "../assets/eye.png";
 import hiddeneye from "../assets/hidden.png";
 
 const Managger = () => {
-  
   const [eyeimage, setEyeimage] = useState(true);
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
@@ -14,10 +13,12 @@ const Managger = () => {
     if (passwords) {
       setPasswordArray(JSON.parse(passwords));
     }
-    
   }, []);
 
-  
+  const copyText = (text) => {
+    navigator.clipboard.writeText(text);
+  };
+
   const savePassword = () => {
     setPasswordArray([...passwordArray, form]);
     localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
@@ -65,7 +66,7 @@ const Managger = () => {
             <div className="relative flex justify-center items-center">
               <input
                 className="rounded-full border text-black p-4 py-1 overflow-hidden  border-green-500 w-full"
-                 type={eyeimage ? "password" : "text"}
+                type={eyeimage ? "password" : "text"}
                 placeholder="Enter password"
                 name="password"
                 id=""
@@ -74,7 +75,7 @@ const Managger = () => {
               />
               <span
                 className="absolute right-1.5 top-1.5 text-black "
-                onClick={() => setEyeimage(prev => !prev)}
+                onClick={() => setEyeimage((prev) => !prev)}
               >
                 {eyeimage ? (
                   <img className="w-6" src={eye} alt="sfdsdf" />
@@ -112,17 +113,57 @@ const Managger = () => {
                 {passwordArray.map((items, index) => {
                   return (
                     <tr key={index}>
-                      <td className="text-center py-2 border border-white w-32">
-                        <a href={items.site} target="_blank"rel="noopener noreferrer">
+                      <td className="text-center py-2 border border-white ">
+                        <div className="flex items-center justify-center">
+                          <a
+                            href={items.site}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {items.site}
+                          </a>
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => copyText(items.site)}
+                          >
+                            <lord-icon
+                              src="https://cdn.lordicon.com/iykgtsbt.json"
+                              trigger="hover"
+                              className="w-7 h-7 py-1.5"
+                            ></lord-icon>
+                          </div>
+                        </div>
+                      </td>
+                      <td className=" text-center py-2 border border-white">
+                        <div className="flex items-center justify-center">
+                          <span>{items.username}</span>
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => copyText(items.username)}
+                          >
+                            <lord-icon
+                              src="https://cdn.lordicon.com/iykgtsbt.json"
+                              trigger="hover"
+                              className="w-7 h-7 py-1.5"
+                            ></lord-icon>
+                          </div>
+                        </div>
+                      </td>
+                      <td className=" text-center py-2 border border-white ">
+                        <div className="flex items-center justify-center">
+                          <span>{items.password}</span>
 
-                        {items.site}
-                        </a>
-                      </td>
-                      <td className="text-center py-2 border border-white w-32">
-                        {items.username}
-                      </td>
-                      <td className="text-center py-2 border border-white w-32">
-                        {items.password}
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => copyText(items.password)}
+                          >
+                            <lord-icon
+                              src="https://cdn.lordicon.com/iykgtsbt.json"
+                              trigger="hover"
+                              className="w-7 h-7 py-1.5"
+                            ></lord-icon>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   );
