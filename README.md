@@ -11,5 +11,11 @@ The new version focuses on:
 
 This project reflects my current development standards and engineering maturity.
 
-**Previous version (for reference only):**  
-[Old Project Deployment](https://password-manager-b9bxdsuyf-adityalad1s-projects.vercel.app/)
+## Previous Version (Screenshots for Reference)
+
+These screenshots are from the earlier implementation, preserved for historical comparison.
+
+![Old Version - Dashboard](Old-project-screenshots/Dashboard.png)
+![Old Version - Saved Password](Old-project-screenshots/working+saved-password.png)
+
+**Previous version:** Private repository (available upon request).
