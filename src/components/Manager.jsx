@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import eye from "../assets/eye.png";
 import hiddeneye from "../assets/hidden.png";
-
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Managger = () => {
   const [eyeimage, setEyeimage] = useState(true);
   const [form, setForm] = useState({ site: "", username: "", password: "" });
@@ -15,8 +16,18 @@ const Managger = () => {
     }
   }, []);
 
-  const copyText = (text) => {
-    navigator.clipboard.writeText(text);
+  const copyText = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("Copied to clipboard 🚀", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "light",
+        transition: Bounce,
+      });
+    } catch (err) {
+      toast.error("Failed to copy ❌");
+    }
   };
 
   const savePassword = () => {
@@ -30,6 +41,19 @@ const Managger = () => {
   };
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-77.5 w-77.5 rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div>
       </div>
@@ -114,7 +138,7 @@ const Managger = () => {
                   return (
                     <tr key={index}>
                       <td className="text-center py-2 border border-white ">
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center  gap-2">
                           <a
                             href={items.site}
                             target="_blank"
@@ -135,7 +159,7 @@ const Managger = () => {
                         </div>
                       </td>
                       <td className=" text-center py-2 border border-white">
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center  gap-2">
                           <span>{items.username}</span>
                           <div
                             className="cursor-pointer"
@@ -150,7 +174,7 @@ const Managger = () => {
                         </div>
                       </td>
                       <td className=" text-center py-2 border border-white ">
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center  gap-2">
                           <span>{items.password}</span>
 
                           <div
