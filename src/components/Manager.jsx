@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import eye from "../assets/eye.png";
 import hiddeneye from "../assets/hidden.png";
 
 const Managger = () => {
-  const ref = useRef();
+  
   const [eyeimage, setEyeimage] = useState(true);
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
@@ -14,16 +14,10 @@ const Managger = () => {
     if (passwords) {
       setPasswordArray(JSON.parse(passwords));
     }
-    // else{
-    //     passwordArray=[]
-    // }
+    
   }, []);
 
-  const showPassword = () => {
-    alert("showpassword");
-    //   setEyeimage();
-    //   ref.current.src = "src/assets/hidden.png";
-  };
+  
   const savePassword = () => {
     setPasswordArray([...passwordArray, form]);
     localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
@@ -39,12 +33,12 @@ const Managger = () => {
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-77.5 w-77.5 rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div>
       </div>
       <div className=" mycontainer">
-        <h1 className="text-4xl text font-bold text-center py-2 border border-white w-32">
+        <h1 className="text-4xl text font-bold text-center py-2 border border-white ">
           <span className="text-green-500">&lt;</span>
           Password-Manager
           <span className="text-green-500">OP/&gt;</span>
         </h1>
-        <p className="text-green-900 text-center py-2 border border-white w-32 text-lg">
+        <p className="text-green-900 text-center py-2 border border-white  text-lg">
           Your Password Manger
         </p>
 
@@ -71,7 +65,7 @@ const Managger = () => {
             <div className="relative flex justify-center items-center">
               <input
                 className="rounded-full border text-black p-4 py-1 overflow-hidden  border-green-500 w-full"
-                type="text"
+                 type={eyeimage ? "password" : "text"}
                 placeholder="Enter password"
                 name="password"
                 id=""
@@ -80,9 +74,7 @@ const Managger = () => {
               />
               <span
                 className="absolute right-1.5 top-1.5 text-black "
-                onClick={() => {
-                  setEyeimage(!eyeimage);
-                }}
+                onClick={() => setEyeimage(prev => !prev)}
               >
                 {eyeimage ? (
                   <img className="w-6" src={eye} alt="sfdsdf" />
@@ -121,7 +113,7 @@ const Managger = () => {
                   return (
                     <tr key={index}>
                       <td className="text-center py-2 border border-white w-32">
-                        <a href={items.site} target="_blank">
+                        <a href={items.site} target="_blank"rel="noopener noreferrer">
 
                         {items.site}
                         </a>
