@@ -23,7 +23,7 @@ const Managger = () => {
       toast.success("Copied to clipboard 🚀", {
         position: "top-right",
         autoClose: 2000,
-        theme: "light",
+        theme: "dark",
         transition: Bounce,
       });
     } catch (err) {
@@ -99,13 +99,13 @@ const Managger = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
         transition={Bounce}
       />
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-77.5 w-77.5 rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div>
       </div>
-      <div className=" mycontainer">
+      <div className="p-2 md:p-0 md:mycontainer">
         <h1 className="text-4xl text font-bold text-center py-2 border border-white ">
           <span className="text-green-500">&lt;</span>
           Password-Manager
@@ -121,17 +121,17 @@ const Managger = () => {
             type="text"
             placeholder="Enter website URL"
             name="site"
-            id=" "
+            id="site"
             value={form.site}
             onChange={handleChange}
           />
-          <div className="flex w-full gap-8 ">
+          <div className="flex flex-col md:flex-row w-full gap-8 ">
             <input
               className="rounded-full border text-black p-4 py-1  border-green-500 w-full"
               type="text"
               placeholder="Enter username"
               name="username"
-              id=""
+              id="username"
               value={form.username}
               onChange={handleChange}
             />
@@ -141,7 +141,7 @@ const Managger = () => {
                 type={eyeimage ? "password" : "text"}
                 placeholder="Enter password"
                 name="password"
-                id=""
+                id="password"
                 value={form.password}
                 onChange={handleChange}
               />
@@ -173,7 +173,9 @@ const Managger = () => {
           <h2 className="font-bold text-2xl py-4">Your password</h2>
           {passwordArray.length === 0 && <div>No passwords to show</div>}
           {passwordArray.length != 0 && (
-            <table className="table-auto w-full rounded-md overflow-hidden">
+            <div className="overflow-x-auto">
+              
+            <table className="table-auto min-w-150 w-full rounded-md overflow-hidden my-5 ">
               <thead className="bg-green-800 text-white ">
                 <tr>
                   <th className="py-2">Site</th>
@@ -268,7 +270,7 @@ const Managger = () => {
                   );
                 })}
               </tbody>
-            </table>
+            </table> </div>
           )}
         </div>
       </div>
