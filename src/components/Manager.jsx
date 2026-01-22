@@ -226,7 +226,7 @@ const Managger = () => {
                       </td>
                       <td className=" text-center py-2 border border-white ">
                         <div className="flex items-center justify-center  gap-2">
-                          <span>{items.password}</span>
+                          <span>{"*".repeat(items.password.length)}</span>
 
                           <div
                             className="cursor-pointer"
